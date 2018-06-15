@@ -1,6 +1,0 @@
-model_checkpoint_path: "biatae_full_train-100"
-all_model_checkpoint_paths: "biatae_full_train-60"
-all_model_checkpoint_paths: "biatae_full_train-70"
-all_model_checkpoint_paths: "biatae_full_train-80"
-all_model_checkpoint_paths: "biatae_full_train-90"
-all_model_checkpoint_paths: "biatae_full_train-100"
