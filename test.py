@@ -8,6 +8,12 @@ import time
 print('preparing data for model ...')
 trainData, testData, validData, sampleData = prepareData()
 
+def get_batch_index(length, batch_size, is_shuffle=True):
+    index = list(range(length))
+    if is_shuffle:
+        np.random.shuffle(index)
+    return index
+
 # hyperparameters
 batch_iterations = 500
 batch_size = 32
@@ -211,10 +217,15 @@ init = tf.global_variables_initializer()
 with tf.Session() as sess:
     sess.run(init)
     for i in range(full_iterations):
-#         train_X, train_y, train_seqlen, train_word_weights, train_aspects_encoding =
-        _, loss_train, accuracy_train = sess.run([optimizer, loss, accuracy], feed_dict = {X: valid_X, y: valid_y, seqlen: valid_seqlen, sentence_locs: valid_word_weights, aspects: valid_aspects_encoding})
-#         loss_valid, accuracy_valid = sess.run([loss, accuracy], feed_dict = {X: valid_X, y: valid_y, seqlen: valid_seqlen, sentence_locs: valid_word_weights, aspects: valid_aspects_encoding})
-        print('step: %s, train loss: %s, train accuracy: %s' % (i, loss_train, accuracy_train))
-#         print('step: %s, valid loss: %s, valid accuracy: %s' % (i, loss_valid, accuracy_valid))
-#     loss_test, accuracy_test = sess.run([loss, accuracy], feed_dict = {X: test_X, y: test_y, seqlen: test_seqlen, sentence_locs: test_word_weights, aspects: test_aspects_encoding})
-#     print('step: %s, valid loss: %s, valid accuracy: %s' % (i, loss_test, accuracy_test))
+        index = get_batch_index(len(train_X), batch_size, True)
+        l = 0.
+        a = 0.
+        c = 0
+        for j in range(int(len(index) / batch_size) + (1 if len(index) % batch_size else 0)):
+            _, batch_loss, batch_accuracy = sess.run([optimizer, loss, accuracy], feed_dict = {X: train_X[index[j * batch_size : (j + 1) * batch_size]], y: train_y[index[j * batch_size : (j + 1) * batch_size]], seqlen: train_seqlen[index[j * batch_size : (j + 1) * batch_size]], sentence_locs: train_word_weights[index[j * batch_size : (j + 1) * batch_size]], aspects: train_aspects_encoding[index[j * batch_size : (j + 1) * batch_size]]})
+            l += batch_loss
+            a += batch_accuracy
+            c += 1
+        print(print('epoch: %s, train loss: %s, train accuracy: %s' % (i, l/c, a/c)))
+        loss_valid, accuracy_valid = sess.run([loss, accuracy], feed_dict = {X: valid_X, y: valid_y, seqlen: valid_seqlen, sentence_locs: valid_word_weights, aspects: valid_aspects_encoding})
+        print('epoch: %s, valid loss: %s, valid accuracy: %s' % (i, loss_valid, accuracy_valid))
