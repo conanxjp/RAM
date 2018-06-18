@@ -12,7 +12,7 @@ trainData, testData, validData, sampleData = prepareData()
 batch_iterations = 500
 batch_size = 32
 full_iterations = 50
-learning_rate = 0.01
+learning_rate = 0.005
 reg_eta = 0.001
 dim_lstm = 300
 num_AL = 3
@@ -51,15 +51,15 @@ with tf.variable_scope('attention', reuse = tf.AUTO_REUSE):
     Wal = tf.get_variable(
         name='W_al',
         shape=[num_AL, 1, dim_lstm * 3 + dim_word + 1],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.contrib.layers.xavier_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.contrib.layers.xavier_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
     Bal = tf.get_variable(
         name='B_al',
         shape=[num_AL, 1, dim_sentence],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.zeros_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.zeros_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
 
@@ -67,43 +67,43 @@ with tf.variable_scope('gru', reuse = tf.AUTO_REUSE):
     Wr = tf.get_variable(
         name='W_r',
         shape=[dim_lstm, dim_lstm * 2 + 1],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.orthogonal_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.orthogonal_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
     Wz = tf.get_variable(
         name='W_z',
         shape=[dim_lstm, dim_lstm * 2 + 1],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.orthogonal_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.orthogonal_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
     Wg = tf.get_variable(
         name='W_g',
         shape=[dim_lstm, dim_lstm],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.orthogonal_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.orthogonal_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
     Wx = tf.get_variable(
         name='W_x',
         shape=[dim_lstm, dim_lstm * 2 + 1],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.orthogonal_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.orthogonal_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
     Ur = tf.get_variable(
         name='U_r',
         shape=[dim_lstm, dim_lstm],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.orthogonal_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.orthogonal_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
     Uz = tf.get_variable(
         name='U_z',
         shape=[dim_lstm, dim_lstm],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.orthogonal_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.orthogonal_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
 
@@ -111,15 +111,15 @@ with tf.variable_scope('softmax', reuse = tf.AUTO_REUSE):
     Ws = tf.get_variable(
         name='W_s',
         shape=[dim_lstm, dim_polarity],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.contrib.layers.xavier_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.contrib.layers.xavier_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
     Bs = tf.get_variable(
         name='B_s',
         shape=[dim_polarity],
-        initializer=tf.random_uniform_initializer(-0.003, 0.003),
-#         initializer=tf.zeros_initializer(),
+        # initializer=tf.random_uniform_initializer(-0.003, 0.003),
+        initializer=tf.zeros_initializer(),
         regularizer=tf.contrib.layers.l2_regularizer(reg_eta)
     )
 
