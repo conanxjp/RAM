@@ -39,10 +39,14 @@ timestamp = str(int(time.time()))
 
 temp, valid_aspects_encoding = validData
 valid_X, valid_y, valid_seqlen = temp
+valid_X = np.array(valid_X)
+valid_seqlen = np.array(valid_seqlen)
 temp, sample_aspects_encoding = sampleData
 sample_X, sample_y, sample_seqlen = temp
 temp, train_aspects_encoding = trainData
 train_X, train_y, train_seqlen = temp
+train_X = np.array(train_X)
+train_seqlen = np.array(train_seqlen)
 temp, test_aspects_encoding = testData
 test_X, test_y, test_seqlen = temp
 
