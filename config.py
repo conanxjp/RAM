@@ -2,7 +2,7 @@
 All constants configuration for the project is here
 """
 import os
-import hunspell
+#import hunspell
 
 ###################################################
 #   file system configuration                     #
@@ -16,13 +16,13 @@ TEST_FILE = "rest_test_2014_processed.csv"
 WORD2VEC_FILE = "glove.840B.300d.txt"
 FOLDER = ROOT_PATH + DATA_PATH
 EMBEDDING_PATH = FOLDER + WORD2VEC_FILE
-HUNSPELL_PATH = "/usr/share/hunspell/"
-HUNSPELL_DICT = ["en_US.dic", "en_US.aff"]
+#HUNSPELL_PATH = "/usr/share/hunspell/"
+#HUNSPELL_DICT = ["en_US.dic", "en_US.aff"]
 
 # loading dictionaries for hunspell is a bit wierd, you have to put the dictionaries
 # in a root-derivative folder path e.g. a folder ~/some-other-path is not allowed
-hobj = hunspell.HunSpell(HUNSPELL_PATH + HUNSPELL_DICT[0],
-                         HUNSPELL_PATH + HUNSPELL_DICT[1])
+#hobj = hunspell.HunSpell(HUNSPELL_PATH + HUNSPELL_DICT[0],
+#                         HUNSPELL_PATH + HUNSPELL_DICT[1])
 
 
 def configure(year, domain, embedding, aim):

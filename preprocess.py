@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from nltk import word_tokenize
 from nltk.metrics import edit_distance
-import hunspell
+#import hunspell
 import re
 from tqdm import tqdm
 import argparse
